@@ -220,13 +220,14 @@ void aes256_encrypt_ecb(aes256_context *ctx, unsigned char k[32],
 
     /* Canonicalized from: for(_s_i_0 =((unsigned char )0);((unsigned long
      * )_s_i_0) <(1 * 32L);_s_i_0++) {...} */
-    L0: for (_s_i_0 = ((unsigned char)0); _s_i_0 <= 31; ++_s_i_0) {
+    for (_s_i_0 = ((unsigned char)0); _s_i_0 <= 31; ++_s_i_0) {
         ctx->enckey[_s_i_0] = ctx->deckey[_s_i_0] = k[_s_i_0];
     }
     i = _s_i_0;
 
-    L1: for (i = ((unsigned char)8); --i;) {
-        // @slot __PIPE__L1
+    L0: for (i = ((unsigned char)8); --i;) {
+    // @slot __PIPE__L0
+    // @slot __UNROLL__L0
 
         aes_expandEncKey_1(ctx->deckey, &rcon);
     }
@@ -237,8 +238,9 @@ void aes256_encrypt_ecb(aes256_context *ctx, unsigned char k[32],
 
     /* Canonicalized from: for((_s_i =((unsigned char )1) , rcon =((unsigned
      * char )1));((int )_s_i) < 14;++_s_i) {...} */
-    L2: for (_s_i = ((unsigned char)1); _s_i <= 13; ++_s_i) {
-        // @slot __PIPE__L2
+    L1: for (_s_i = ((unsigned char)1); _s_i <= 13; ++_s_i) {
+    // @slot __PIPE__L1
+    // @slot __UNROLL__L1
 
         aes_subBytes_1(buf);
         aes_shiftRows_1(buf);
