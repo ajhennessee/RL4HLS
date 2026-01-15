@@ -33,21 +33,21 @@ void kernel_adi(double u[60][60], double v[60][60], double p[60][60], double q[6
     f = d;
 
     L0: for (t = 1; t <= 40; t++) {
-        // @slot __PIPE__L0
-        // @slot __UNROLL__L0
+    // @slot __PIPE__L0
+    // @slot __UNROLL__L0
         
         /* Column Sweep */
         L1: for (i = 1; i < 59; i++) {
-            // @slot __PIPE__L1
-            // @slot __UNROLL__L1
+        // @slot __PIPE__L1
+        // @slot __UNROLL__L1
 
             v[0][i] = 1.0;
             p[i][0] = 0.0;
             q[i][0] = v[0][i];
             
             L3: for (j = 1; j < 59; j++) {
-                // @slot __PIPE__L3
-                // @slot __UNROLL__L3
+            // @slot __PIPE__L3
+            // @slot __UNROLL__L3
 
                 p[i][j] = -c / (a * p[i][j - 1] + b);
                 q[i][j] = (-d * u[j][i - 1] + (1.0 + 2.0 * d) * u[j][i] - f * u[j][i + 1] - a * q[i][j - 1]) / (a * p[i][j - 1] + b);
@@ -56,8 +56,8 @@ void kernel_adi(double u[60][60], double v[60][60], double p[60][60], double q[6
             /* Standardize from: for(j = 60 - 2;j >= 1;j--) {...} */
             
             L4: for (j = 0; j <= 57; j++) {
-                // @slot __PIPE__L4
-                // @slot __UNROLL__L4
+            // @slot __PIPE__L4
+            // @slot __UNROLL__L4
 
                 int _in_j_0 = 58 + -1 * j;
                 v[_in_j_0][i] = p[i][_in_j_0] * v[_in_j_0 + 1][i] + q[i][_in_j_0];
@@ -67,16 +67,16 @@ void kernel_adi(double u[60][60], double v[60][60], double p[60][60], double q[6
 
         /* Row Sweep */
         L2: for (i = 1; i < 59; i++) {
-            // @slot __PIPE__L2
-            // @slot __UNROLL__L2
+        // @slot __PIPE__L2
+        // @slot __UNROLL__L2
 
             u[i][0] = 1.0;
             p[i][0] = 0.0;
             q[i][0] = u[i][0];
 
             L5: for (j = 1; j < 59; j++) {
-                // @slot __PIPE__L5
-                // @slot __UNROLL__L5
+            // @slot __PIPE__L5
+            // @slot __UNROLL__L5
 
                 p[i][j] = -f / (d * p[i][j - 1] + e);
                 q[i][j] = (-a * v[i - 1][j] + (1.0 + 2.0 * a) * v[i][j] - c * v[i + 1][j] - d * q[i][j - 1]) / (d * p[i][j - 1] + e);
@@ -85,8 +85,8 @@ void kernel_adi(double u[60][60], double v[60][60], double p[60][60], double q[6
             /* Standardize from: for(j = 60 - 2;j >= 1;j--) {...} */
 
             L6: for (j = 0; j <= 57; j++) {
-                // @slot __PIPE__L6
-                // @slot __UNROLL__L6
+            // @slot __PIPE__L6
+            // @slot __UNROLL__L6
 
                 int _in_j = 58 + -1 * j;
                 u[i][_in_j] = p[i][_in_j] * u[i][_in_j + 1] + q[i][_in_j];
